@@ -6,9 +6,22 @@ pub fn format_numeral(n: f64, format: &str) -> String {
     }
 }
 
+pub fn unformat_numeral(string: &str) -> f64 {
+    if string.contains(":") {
+        unformat_time(string)
+    } else {
+        unformat_number(string)
+    }
+}
+
 #[allow(unused_variables)]
 fn format_number(n: f64, format: &str) -> String {
     "TODO".to_string()
+}
+
+#[allow(unused_variables)]
+fn unformat_number(string: &str) -> f64 {
+    0.0
 }
 
 #[allow(unused_variables)]
@@ -34,8 +47,35 @@ fn format_time(n: f64, format: &str) -> String {
     hours_string + ":" + minutes_string + ":" + seconds_string
 }
 
+fn unformat_time(string: &str) -> f64 {
+    let split = string.split(":");
+    let time_array: Vec<&str> = split.collect();
+    let mut seconds = 0.0;
+
+    if time_array.len() == 3 {
+        // hours
+        seconds = seconds + (time_array[0].parse::<f64>().unwrap() * 60.0 * 60.0);
+        // minutes
+        seconds = seconds + (time_array[1].parse::<f64>().unwrap() * 60.0);
+        // seconds
+        seconds = seconds + (time_array[2].parse::<f64>().unwrap());
+    } else if time_array.len() == 2 {
+        // minutes
+        seconds = seconds + (time_array[0].parse::<f64>().unwrap() * 60.0);
+        // seconds
+        seconds = seconds + (time_array[1].parse::<f64>().unwrap());
+    }
+    seconds
+}
+
 #[test]
 fn test_format_time() {
     let time = format_numeral(3600.0, "00:00:00");
     assert_eq!(time, "1:00:00");
+}
+
+#[test]
+fn test_unformat_time() {
+    let number = unformat_numeral("1:00:00");
+    assert_eq!(number, 3600.0);
 }

@@ -1,4 +1,7 @@
 [package]
 name = "numeral"
 version = "0.1.0"
-authors = ["M. Rizky Luthfianto <mrluthfianto@gmail.com>"]
+authors = [
+  "M. Rizky Luthfianto <mrluthfianto@gmail.com>",
+  "Bahrunnur <bahrunnur20@gmail.com>",
+]
