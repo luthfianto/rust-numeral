@@ -16,12 +16,12 @@ pub fn unformat_numeral(string: &str) -> f64 {
 
 #[allow(unused_variables)]
 fn format_number(n: f64, format: &str) -> String {
-    "TODO".to_string()
+    unimplemented!()
 }
 
 #[allow(unused_variables)]
 fn unformat_number(string: &str) -> f64 {
-    0.0
+    unimplemented!()
 }
 
 #[allow(unused_variables)]
