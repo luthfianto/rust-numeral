@@ -48,24 +48,19 @@ fn format_time(n: f64, format: &str) -> String {
 }
 
 fn unformat_time(string: &str) -> f64 {
-    let split = string.split(":");
-    let time_array: Vec<&str> = split.collect();
-    let mut seconds = 0.0;
+    let splitted: Vec<&str> = string.split(":").collect();
+    let time_array: Vec<f64> = splitted.iter().map(|element| element.parse::<f64>().unwrap() ).collect();
 
-    if time_array.len() == 3 {
-        // hours
-        seconds = seconds + (time_array[0].parse::<f64>().unwrap() * 60.0 * 60.0);
-        // minutes
-        seconds = seconds + (time_array[1].parse::<f64>().unwrap() * 60.0);
-        // seconds
-        seconds = seconds + (time_array[2].parse::<f64>().unwrap());
-    } else if time_array.len() == 2 {
-        // minutes
-        seconds = seconds + (time_array[0].parse::<f64>().unwrap() * 60.0);
-        // seconds
-        seconds = seconds + (time_array[1].parse::<f64>().unwrap());
+    match time_array.len() {
+        // hours + minutes + seconds
+        3 => (time_array[0] * 60.0 * 60.0) + (time_array[1] * 60.0) + time_array[2],
+
+        // minutes + seconds
+        2 => (time_array[0] * 60.0) + time_array[1],
+
+        // else
+        _ => unimplemented!()
     }
-    seconds
 }
 
 #[test]
